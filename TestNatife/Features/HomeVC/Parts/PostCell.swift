@@ -26,7 +26,15 @@ final class PostCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(isExpanded: Bool) {
+    func configure(with post: Post, isExpanded: Bool) {
+        let postDate = Date(timeIntervalSince1970: TimeInterval(post.timeshamp))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM yyyy"
+        date.text = formatter.string(from: postDate)
+        
+        title.text = post.title
+        text.text = post.previewText
+        like.text = "❤️\(post.likesCount)"
         text.numberOfLines = isExpanded ? 0 : 2
         buttonCell.setTitle(isExpanded ? "Collapse" : "Expand", for: .normal)
     }
@@ -52,20 +60,16 @@ private extension PostCell {
     }
     
     func setupLabel() {
-        title.text = "The Ingenious Prank Music Legend Mozart Played On Someone He Couldn’t Stand"
         title.font = .boldSystemFont(ofSize: 20)
         title.numberOfLines = .max
-       
-        text.text = "When we think of famous bands, we have an image of each member’s distinctive roles. More often than not, every member has clearly defined roles that they stick to from beginning to end."
+    
         text.textColor = .gray
         text.clipsToBounds = true
-
-        like.text = "❤️1233"
+        
         like.font = .systemFont(ofSize: 13)
         like.textColor = .gray
         text.contentMode = .top
         
-        date.text = "12 January"
         date.font = .systemFont(ofSize: 13)
         date.textColor = .gray
     }
