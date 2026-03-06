@@ -7,14 +7,19 @@
 
 import Foundation
 
-class NetworkManager {
+final class NetworkManager {
     private let url = "https://raw.githubusercontent.com/anton-natife/jsons/master/api"
     
     //Get posts
     func fetchPosts(completion: @escaping ([Post]) -> Void) {
         guard let url = URL(string: "\(url)/main.json") else { return }
         
-        URLSession.shared.dataTask(with: url) { data, _, _ in
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error {
+                print("Error: \(error)")
+                return
+            }
+            
             guard let data else { return }
             
             let responce = try? JSONDecoder().decode(PostList.self, from: data)
@@ -26,17 +31,22 @@ class NetworkManager {
     }
     
     //Get post
-    func fetchPost(id: Int, completion: @escaping (Post?) -> Void) {
-        guard let url = URL(string: "\(url)/posts\(id).json") else { return }
+    func fetchPost(id: Int, completion: @escaping (PostDetail?) -> Void) {
+        guard let url = URL(string: "\(url)/posts/\(id).json") else { return }
         
-        URLSession.shared.dataTask(with: url) { data, _, _ in
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error {
+                print("Error: \(error)")
+                return
+            }
+            
             guard let data else { return }
             
-            let post = try? JSONDecoder().decode(Post.self, from: data)
+            let response = try? JSONDecoder().decode(PostDetailList.self, from: data)
             
             DispatchQueue.main.async {
-                completion(post)
+                completion(response?.post)
             }
-        }
+        }.resume()
     }
 }

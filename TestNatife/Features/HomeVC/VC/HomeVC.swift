@@ -22,7 +22,6 @@ final class HomeVC: UIViewController {
         super.viewDidLoad()
         setup()
     }
-    
 }
 
 //MARK: -> Setup View
@@ -35,7 +34,6 @@ private extension HomeVC {
         configureDataSource()
         bindViewModel()
         vm.fetchPosts()
-        
     }
     
     func setupView() {
@@ -91,7 +89,6 @@ private extension HomeVC {
         
         //Section
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 30
         
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -116,7 +113,9 @@ private extension HomeVC {
 //MARK: -> UICollectionViewDelegate
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //
+        let post = vm.posts[indexPath.item]
+        let detailVC = DetailVC(postId: post.postId)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
@@ -158,11 +157,11 @@ private extension HomeVC {
     }
     
     func applySnapshot(with posts: [Post]) {
-            var snapshot = NSDiffableDataSourceSnapshot<Int, Post>()
-            snapshot.appendSections([0])
-            snapshot.appendItems(posts)
-            diffableDataSource.apply(snapshot)
-        }
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Post>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(posts)
+        diffableDataSource.apply(snapshot)
+    }
 }
 
 //MARK: -> Preview

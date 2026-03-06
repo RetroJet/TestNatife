@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HomeViewModel {
+final class HomeViewModel {
     private(set) var posts: [Post] = []
     
     private let network = NetworkManager()
