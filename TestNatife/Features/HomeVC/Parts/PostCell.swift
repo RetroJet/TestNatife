@@ -8,10 +8,10 @@
 import UIKit
 
 final class PostCell: UICollectionViewCell {
-    private let title = UILabel()
-    private let text = UILabel()
-    private let like = UILabel()
-    private let date = UILabel()
+    private let titleLabel = UILabel()
+    private let textLabel = UILabel()
+    private let likeLabel = UILabel()
+    private let dateLabel = UILabel()
     private let buttonCell = UIButton()
     
     var buttonTapped: (() -> Void)?
@@ -30,13 +30,15 @@ final class PostCell: UICollectionViewCell {
         let postDate = Date(timeIntervalSince1970: TimeInterval(post.timeshamp))
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
-        date.text = formatter.string(from: postDate)
+        dateLabel.text = formatter.string(from: postDate)
         
-        title.text = post.title
-        text.text = post.previewText
-        like.text = "❤️\(post.likesCount)"
-        text.numberOfLines = isExpanded ? 0 : 2
+        titleLabel.text = post.title
+        likeLabel.text = "❤️\(post.likesCount)"
+        
+        textLabel.text = post.previewText
+        textLabel.numberOfLines = isExpanded ? 0 : 2
         buttonCell.setTitle(isExpanded ? "Collapse" : "Expand", for: .normal)
+        buttonCell.isHidden = post.previewText.count < 100
     }
 }
 
@@ -51,27 +53,27 @@ private extension PostCell {
     
     func setupView() {
         contentView.addSubviews(
-            title,
-            text,
-            like,
-            date,
+            titleLabel,
+            textLabel,
+            likeLabel,
+            dateLabel,
             buttonCell
         )
     }
     
     func setupLabel() {
-        title.font = .boldSystemFont(ofSize: 20)
-        title.numberOfLines = .max
-    
-        text.textColor = .gray
-        text.clipsToBounds = true
+        titleLabel.font = .boldSystemFont(ofSize: 20)
+        titleLabel.numberOfLines = .max
         
-        like.font = .systemFont(ofSize: 13)
-        like.textColor = .gray
-        text.contentMode = .top
+        textLabel.textColor = .gray
+        textLabel.clipsToBounds = true
+        textLabel.contentMode = .top
         
-        date.font = .systemFont(ofSize: 13)
-        date.textColor = .gray
+        likeLabel.font = .systemFont(ofSize: 13)
+        likeLabel.textColor = .gray
+        
+        dateLabel.font = .systemFont(ofSize: 13)
+        dateLabel.textColor = .gray
     }
     
     func setupButton() {
@@ -90,29 +92,29 @@ private extension PostCell {
 private extension PostCell {
     func setupLayout() {
         disableAutoresizing(
-            title,
-            text,
-            like,
-            date,
+            titleLabel,
+            textLabel,
+            likeLabel,
+            dateLabel,
             buttonCell
         )
         
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            text.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20),
-            text.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            text.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            textLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            like.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 20),
-            like.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            likeLabel.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 20),
+            likeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
-            date.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 20),
-            date.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            dateLabel.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 20),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            buttonCell.topAnchor.constraint(equalTo: like.bottomAnchor, constant: 20),
+            buttonCell.topAnchor.constraint(equalTo: likeLabel.bottomAnchor, constant: 20),
             buttonCell.heightAnchor.constraint(equalToConstant: 45),
             buttonCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             buttonCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		78A6943E2F59E44C006DA0D0 /* TestNatife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TestNatife.app; path = "/Users/nazar/Desktop/Swift/Learn/TestNatife/build/Debug-iphoneos/TestNatife.app"; sourceTree = "<absolute>"; };
+		78A696A02F5B3D0B006DA0D0 /* TestNatife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TestNatife.app; path = "/Users/nazar/Desktop/Swift/Learn/TestNatife/build/Debug-iphoneos/TestNatife.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -71,7 +71,7 @@
 			packageProductDependencies = (
 			);
 			productName = TestNatife;
-			productReference = 78A6943E2F59E44C006DA0D0 /* TestNatife.app */;
+			productReference = 78A696A02F5B3D0B006DA0D0 /* TestNatife.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
