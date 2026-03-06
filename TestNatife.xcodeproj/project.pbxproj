@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		78A6943E2F59E44C006DA0D0 /* TestNatife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestNatife.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		78A6943E2F59E44C006DA0D0 /* TestNatife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TestNatife.app; path = "/Users/nazar/Desktop/Swift/Learn/TestNatife/build/Debug-iphoneos/TestNatife.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		78A694502F59E44F006DA0D0 /* Exceptions for "TestNatife" folder in "TestNatife" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = 78A6943D2F59E44C006DA0D0 /* TestNatife */;
 		};
@@ -46,16 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				78A694402F59E44C006DA0D0 /* TestNatife */,
-				78A6943F2F59E44C006DA0D0 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		78A6943F2F59E44C006DA0D0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				78A6943E2F59E44C006DA0D0 /* TestNatife.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,7 +99,7 @@
 			mainGroup = 78A694352F59E44C006DA0D0;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 78A6943F2F59E44C006DA0D0 /* Products */;
+			productRefGroup = 78A694352F59E44C006DA0D0;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -147,12 +138,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79NZFM7X3P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TestNatife/Info.plist;
+				INFOPLIST_FILE = TestNatife/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -179,12 +169,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79NZFM7X3P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TestNatife/Info.plist;
+				INFOPLIST_FILE = TestNatife/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
