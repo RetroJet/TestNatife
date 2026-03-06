@@ -13,8 +13,10 @@ struct HomeVCPreview: UIViewControllerRepresentable {}
 final class HomeVC: UIViewController {
     private let reuseIdentifier = "reuseIdentifier"
     private var collectionView: UICollectionView!
-    private var diffableDataSource: UICollectionViewDiffableDataSource<Int,String>!
-    private var expandedItems: Set<String> = []
+    private var diffableDataSource: UICollectionViewDiffableDataSource<Int,Post>!
+    private var expandedItems: Set<Int> = []
+    
+    private let vm = HomeViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,9 @@ private extension HomeVC {
         setupNavigationBar()
         setupLayout()
         configureDataSource()
-        applySnapshot()
+        bindViewModel()
+        vm.fetchPosts()
+        
     }
     
     func setupView() {
@@ -43,6 +47,7 @@ private extension HomeVC {
         
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .separator
+        appearance.backgroundColor = .white
         
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -56,8 +61,13 @@ private extension HomeVC {
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
+    
+    func bindViewModel() {
+        vm.onPostsLoaded = { [weak self] posts in
+            self?.applySnapshot(with: posts)
+        }
+    }
 }
-
 
 //MARK: -> Setup CollectionViewLayout
 private extension HomeVC {
@@ -115,27 +125,26 @@ private extension HomeVC {
     func configureDataSource() {
         diffableDataSource = UICollectionViewDiffableDataSource(
             collectionView: collectionView,
-            cellProvider: { collectionView, indexPath, itemIdentifier in
+            cellProvider: { collectionView, indexPath, post in
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: self.reuseIdentifier,
                     for: indexPath) as? PostCell else {
                     return UICollectionViewCell()
                 }
-                        let isExpanded = self.expandedItems.contains(itemIdentifier)
-                        cell.configure(isExpanded: isExpanded)
-                        
-                cell.buttonTapped = { [weak self] in
-                    guard let self else { return }
-
-                    if self.expandedItems.contains(itemIdentifier) {
-                        self.expandedItems.remove(itemIdentifier)
+                
+                let isExpanded = self.expandedItems.contains(post.postId)
+                cell.configure(with: post, isExpanded: isExpanded)
+                
+                cell.buttonTapped = {
+                    if self.expandedItems.contains(post.postId) {
+                        self.expandedItems.remove(post.postId)
                     } else {
-                        self.expandedItems.insert(itemIdentifier)
+                        self.expandedItems.insert(post.postId)
                     }
-
-                    let isExpanded = self.expandedItems.contains(itemIdentifier)
-                    cell.configure(isExpanded: isExpanded)
-
+                    
+                    let isExpanded = self.expandedItems.contains(post.postId)
+                    cell.configure(with: post, isExpanded: isExpanded)
+                    
                     self.collectionView.collectionViewLayout.invalidateLayout()
                     
                     UIView.animate(withDuration: 0.3, delay: 0, options: .allowAnimatedContent) {
@@ -148,10 +157,10 @@ private extension HomeVC {
         )
     }
     
-    func applySnapshot() {
-            var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
+    func applySnapshot(with posts: [Post]) {
+            var snapshot = NSDiffableDataSourceSnapshot<Int, Post>()
             snapshot.appendSections([0])
-            snapshot.appendItems(["p1", "p2", "p3"])
+            snapshot.appendItems(posts)
             diffableDataSource.apply(snapshot)
         }
 }
@@ -161,10 +170,10 @@ extension HomeVCPreview {
     func makeUIViewController(context: Context) -> UINavigationController {
         UINavigationController(rootViewController: HomeVC())
     }
-
+    
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
 }
-    
+
 
 #Preview {
     HomeVCPreview().ignoresSafeArea()
